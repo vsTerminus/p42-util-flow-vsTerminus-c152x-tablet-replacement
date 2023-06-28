@@ -18,10 +18,10 @@ run(() => {
 info(() => {
 	const trim_pct = Math.round(this.$api.variables.get(var_trim_pct, "Percent"));
 	let msg = 'Trim Tab <br/>';
-	if ( trim_pct > 0 ) {
+	if ( trim_pct < 0 ) {
 		msg += Math.abs(trim_pct) + '% Left';
 	}
-	else if ( trim_pct < 0 ) {
+	else if ( trim_pct > 0 ) {
 		msg += Math.abs(trim_pct) + '% Right';
 	}
 	else {
@@ -38,10 +38,10 @@ state(() => {
 		const trim_set = this.$api.variables.set(var_trim_set, "Number", data.trim);
 	}
 
-	if ( trim_pct > 0 ) {
+	if ( trim_pct < 0 ) {
 		return var_icon_left;
 	}
-	else if ( trim_pct < 0 ) {
+	else if ( trim_pct > 0 ) {
 		return var_icon_right;
 	}
 	else {
@@ -63,12 +63,12 @@ style(() => {
 scroll((event) => {
 	const parked = this.$api.variables.get(var_parked, "Boolean");
 	if ( parked ) {
-		if(event.scroll > 0 && !block_scroll) {
+		if(event.scroll < 0 && !block_scroll) {
 			if ( data.trim < 100 ) { data['trim']++ }
 			block_scroll = true;
 			setTimeout(function(){block_scroll = false;}, scroll_rate);
 		}
-		else if(event.scroll < 0 && !block_scroll)
+		else if(event.scroll > 0 && !block_scroll)
 		{
 			if ( data.trim > -100 ) { data['trim']-- }
 			block_scroll = true;
