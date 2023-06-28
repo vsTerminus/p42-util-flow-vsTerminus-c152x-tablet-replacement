@@ -81,3 +81,11 @@ These widgets should replace all functionality from the default tablet.
 - **Toggle Transponder**
     - This toggles between the default analog transponder and the GTX330 with digital display
 
+## Differences
+
+There are a couple of minor things that differ from the tablet:
+
+- Rudder trim isn't stored with the plane's state but instead with the tablet's state, so I re-implemented that using Flow's state saving API
+- The default tablet does not have a "Parking Monitor", but since many things in the plane rely on checking the "parked" state I needed a way to monitor and set that variable. Plus it seemed useful.
+- I combined the Pitot Tube Cover and the Engine Cover into a single widget; In the tablet they are separate.
+    - TBH, the wheel has 10 slots and there are 11 toggle-able items. I figure people are unlikely to care, and I didn't want a third wheel.
